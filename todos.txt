@@ -1,0 +1,5 @@
+TODO: Implement the figures using canvas instead of templates
+TODO: Add karma & jasmine and implement unit tests
+TODO: Separate the grunt tasks (builds) to dev/prod
+TODO: Add more debugging features using the same UI but with inputs and selects (primitive type properties)
+TODO: Think about changing the transpiler from Babel to Google Traceur
