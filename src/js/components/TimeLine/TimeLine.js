@@ -19,13 +19,13 @@ class TimeLine {
      * @static
      * @type {number}
      */
-    static speed = 0.8;
+    static speed = 0.5;
 
     /**
      * @static
      * @type {number}
      */
-    static delay = 1.5;
+    static delay = 1.0;
 
     /**
      * @static

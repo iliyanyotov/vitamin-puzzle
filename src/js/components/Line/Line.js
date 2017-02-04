@@ -108,17 +108,36 @@ class Line {
 
 // Private methods ------------------------------------------------------------
 
+    /**
+     * Get vitamin by value
+     * @param {string} value
+     * @returns {*}
+     * @private
+     */
     _getVitaminByValue (value) {
         return this._getVitaminByProp('value', value);
     }
 
+    /**
+     * Get vitamin by size
+     * @param {number} value
+     * @returns {*}
+     * @private
+     */
     _getVitaminBySize (value) {
         return this._getVitaminByProp('size', value);
     }
 
+    /**
+     * Get vitamin by certain passed property
+     * @param {string} prop
+     * @param {string|number} value
+     * @returns {*}
+     * @private
+     */
     _getVitaminByProp (prop, value) {
-        if (! ['value', 'size', 'color'].includes(prop)) return;//TODO;
-        return this.vitamins.find(vit => vit[prop] === value);
+        let props = ['value', 'size', 'color'];
+        if (props.includes(prop)) return this.vitamins.find(vit => vit[prop] === value);
     }
 
     /**
@@ -269,7 +288,7 @@ class Line {
 // 1A TASK --------------------------------------------------------------------
 
     /**
-     * TODO: Performing the color swap using the maxi-maxi principle
+     * Performing the color swap using the maxi-maxi principle
      * @public
      */
     makeAllWhite () {
@@ -278,14 +297,44 @@ class Line {
 
         console.log('MAXI-MAXI: Making all vitamins white!');
 
+        let biggest = this._getBiggestVitamin().size;
+        let neededMoves = Math.pow(2, this.vitamins.length) - 1;
 
+        let move = (vitamin, from, to, using) => {
+            iterations++;
+            let curr = this._getVitaminBySize(vitamin);
+            if (curr.size === biggest) {
+                actions.push(curr.changeColor(to));
 
+                if (iterations === neededMoves) {
+                    console.log(`Iterations: ${iterations}`);
+                    console.log('Actions: ');
+                    console.log(JSON.stringify(actions, null, 4));
+                }
+            } else {
+                move(curr.size + 1, from, using, to);
+                actions.push(curr.changeColor(to));
+                move(curr.size + 1, using, to, from);
+            }
+        };
 
+        let firstVit = this._getVitaminBySize(Vitamin.INITIAL_SIZE);
+        let using = Object.values(Vitamin.COLORS).find(color => {
+            return  color !== Vitamin.COLORS.WHITE &&
+                    color !== firstVit.color
+        });
 
-        console.log(`Iterations: [${iterations}]`);
-        console.log('Actions: ');
-        console.log(JSON.stringify(actions, null, 4));
-        return JSON.stringify(actions, null, 4);
+        move(firstVit.size, firstVit.color, Vitamin.COLORS.WHITE, using);
+        // return JSON.stringify(actions, null, 4);
+    }
+
+    /**
+     * Get biggest vitamin (vitamins should be arranged)
+     * @returns {Vitamin}
+     * @private
+     */
+    _getBiggestVitamin () {
+        return this.vitamins[this.vitamins.length - 1];
     }
 }
 

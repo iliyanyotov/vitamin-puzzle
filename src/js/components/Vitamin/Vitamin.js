@@ -140,6 +140,7 @@ class Vitamin {
      * @param {string} color
      * @param {boolean} [isInitial = false]
      * @param {function} [callback]
+     * @returns {Array}
      * @public
      */
     changeColor (color, isInitial = false, callback) {
@@ -158,8 +159,15 @@ class Vitamin {
             })
         });
 
+        // Construct a return data for makeAllWhite function
+        let data = [
+            this.size, this.color, color
+        ];
+
         this.color = color;
         this.value = `${this.size}${this.color}`;
+
+        return data;
     }
 
 // Private methods ------------------------------------------------------------

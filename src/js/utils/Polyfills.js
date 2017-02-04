@@ -14,5 +14,9 @@ Number.isInteger = Number.isInteger || isInteger;
 const objectValues = require('object-values');
 Object.values = Object.values || objectValues;
 
-
-// add includes polyfill
+/**
+ * Using polyfill/shim for Array.includes because its not implement in all browsers (ES6 standard)
+ * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes}
+ */
+const arrayIncludes = require('array-includes');
+Array.includes = Array.includes || arrayIncludes;

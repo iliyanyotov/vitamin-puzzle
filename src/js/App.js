@@ -30,7 +30,7 @@ class App {
     _presets = {
         animations: {
             title: 'Animation',
-            open: true,
+            open: false,
             props: [
                 'pause',
                 'resume',
@@ -42,7 +42,7 @@ class App {
             open: true,
             props: [
                 'simpleLine',
-                //'makeAllWhite',
+                'makeAllWhite',
                 'changeState',
                 'loadOperations',
                 'combination'
@@ -69,8 +69,6 @@ class App {
      * @private
      */
     _init () {
-        this._line = new Line('3B 4B');
-        this._line.makeAllWhite();
         console.info('Use the controls to change the state and pass operations!');
 
         this._debug = new Debug();
@@ -85,8 +83,8 @@ class App {
     }
 
     makeAllWhite () {
-        this._line = new Line('3G 4G 5B 6W');
-        //this._line.makeAllWhite();
+        this._line = new Line('3B 4B 5B 6B');
+        this._line.makeAllWhite();
     }
 
     changeState () {
@@ -116,11 +114,9 @@ class App {
         ]);
 
         this._line.changeState('5G 6B');
-        this._line.changeState('3B');
-        this._line.changeState('3W 5B');
-        this._line.changeState('3G');
-        this._line.changeState('6W 4W 5W 3W');
-        //this._line.makeAllWhite();
+        this._line.changeState('4G');
+        this._line.changeState('6G');
+        this._line.makeAllWhite();
     }
 }
 
